@@ -17,7 +17,7 @@ Run the given `docker-compose`:
 bash> sudo docker-compose up
 ```
 
-Either will start a web-server running on `http://localhost:8080` with the following endpoints:
+It will start a web-server running on `http://localhost:8080` with the following endpoints:
 
 - CreateOrder: `POST /api/orders`
 - AllOrders: `GET /api/orders`
