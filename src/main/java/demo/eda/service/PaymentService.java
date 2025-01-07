@@ -34,4 +34,8 @@ public class PaymentService {
                     });
                 });
     }
+
+    public Flux<Payment> getAll() {
+        return paymentRepository.findAll();
+    }
 }

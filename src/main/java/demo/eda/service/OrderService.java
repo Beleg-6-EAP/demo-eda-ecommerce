@@ -6,6 +6,7 @@ import demo.eda.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -20,5 +21,9 @@ public class OrderService {
          final OrderCreatedEvent event = new OrderCreatedEvent(order.getId(), order.getUserId(), order.getAmount());
          return producer.send(OrderCreatedEvent.TOPIC, event).then(orderRepository.save(order));
      });
+    }
+
+    public Flux<Order> getAll() {
+        return orderRepository.findAll();
     }
 }

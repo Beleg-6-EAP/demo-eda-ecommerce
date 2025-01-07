@@ -39,4 +39,8 @@ public class ShipmentService {
                     return Mono.empty();
                 });
     }
+
+    public Flux<Shipment> getAll() {
+        return shipmentRepository.findAll();
+    }
 }
