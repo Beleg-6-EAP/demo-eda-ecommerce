@@ -18,8 +18,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<Mono<Void>> createOrder(@RequestBody Mono<Order> orderMono) {
-        orderService.create(orderMono);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.create(orderMono).then(), HttpStatus.CREATED);
     }
 
     @GetMapping

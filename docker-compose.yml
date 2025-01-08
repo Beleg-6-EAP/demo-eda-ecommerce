@@ -1,5 +1,4 @@
 services:
-  # Zookeeper for Kafka
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
@@ -8,7 +7,6 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
 
-  # Kafka Broker
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka
@@ -22,30 +20,19 @@ services:
     depends_on:
       - zookeeper
 
-  # MongoDB for persistence
   mongodb:
     image: mongo:latest
     container_name: mongodb
     ports:
       - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
 
-  # Spring Boot Application
-  demo-eda-ecommerce:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: demo-eda-ecommerce
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATA_MONGODB_HOST: mongodb
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    depends_on:
-      - kafka
-      - mongodb
-
-volumes:
-  mongodb_data:
+#  demo-eda-ecommerce:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: demo-eda-ecommerce
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - kafka
+#      - mongodb
