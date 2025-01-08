@@ -5,10 +5,8 @@ import demo.eda.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -19,8 +17,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public Mono<ResponseEntity<Void>> createOrder(@RequestBody Mono<Order> orderMono) {
-        orderService.create(orderMono);
-        return Mono.just(new ResponseEntity<>(HttpStatus.CREATED));
+    public ResponseEntity<Mono<Void>> createOrder(@RequestBody Mono<Order> orderMono) {
+        return new ResponseEntity<>(orderService.create(orderMono).then(), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<Flux<Order>> getAllOrders() {
+        return ResponseEntity.ok(orderService.getAll());
     }
 }

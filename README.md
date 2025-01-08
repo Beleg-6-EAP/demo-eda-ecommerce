@@ -36,9 +36,12 @@ To create an order `POST` below request to `http://localhost:8080/api/orders`:
 }
 ```
 
-This will initiate payment as well as shipment.
+This will initiate payment as well as shipment by publishing events to [Apache Kafka](https://kafka.apache.org/) (Event-Broker) and then consuming them.
+You can observe the communication between the Spring Boot App (producer & consumer) and Kafka by looking at the command-line-output following the composed start of the containers. 
 
-It's success can be checked by requesting the other endpoints via `GET`.
+Further you can request all orders, payments and shipments at their respective endpoints via `GET`.
+
+It is worth noting, that this demo-application is entirely asynchronous and non-blocking.
 
 ## Troubleshooting
 
