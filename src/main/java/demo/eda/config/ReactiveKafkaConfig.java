@@ -19,7 +19,7 @@ public class ReactiveKafkaConfig {
     @Bean
     public <T> ReactiveKafkaProducerTemplate<String, T> reactiveKafkaProducerTemplate() {
         final Map<String, Object> producerProps = new HashMap<>();
-        producerProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        producerProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
         producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         producerProps.put(ProducerConfig.ACKS_CONFIG, "all");
